@@ -5,7 +5,9 @@ MAX_ITER = 2500  # Ограничение на число итераций
 
 # Исходные данные
 X_values = [-0.98, -0.5, 0.1, 0.5, 0.95]
-Eps_values = [1e-2, 1e-4, 1e-6, 1e-8]
+
+# Ввод точности Eps с клавиатуры
+Eps = float(input("Введите точность Eps: "))
 
 # Функция для вычисления суммы ряда
 def compute_series(x, eps):
@@ -27,13 +29,12 @@ def control_function(x):
     return (math.cos(x) - 1) / x**2 + 0.5
 
 # Вывод заголовка таблицы
-print(f"{'Eps':<10} {'X':<10} {'S(X)':<15} {'K':<10} {'F(X)':<15} {'|S(X)-F(X)|':<15}")
-print("=" * 80)
+print(f"{'X':<10} {'S(X)':<15} {'K':<10} {'F(X)':<15} {'|S(X)-F(X)|':<15}")
+print("=" * 70)
 
-# Выполнение расчетов для всех значений X и Eps
-for eps in Eps_values:
-    for x in X_values:
-        Sx, iterations = compute_series(x, eps)
-        Fx = control_function(x)
-        error = abs(Sx - Fx)
-        print(f"{eps:<10.1e} {x:<10.2f} {Sx:<15.8f} {iterations:<10} {Fx:<15.8f} {error:<15.8f}")
+# Выполнение расчетов для всех значений X
+for x in X_values:
+    Sx, iterations = compute_series(x, Eps)
+    Fx = control_function(x)
+    error = abs(Sx - Fx)
+    print(f"{x:<10.2f} {Sx:<15.8f} {iterations:<10} {Fx:<15.8f} {error:<15.8f}")
